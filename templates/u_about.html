@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+      /* Reset and Base Styling */
+      * {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          text-decoration: none;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+          background-color: #f9fbe7; /* Light green background */
+          overflow-x: hidden;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+          position: fixed;
+          left: -250px;
+          width: 250px;
+          height: 100%;
+          background: #0a3d62; /* Darker blue */
+          transition: all .5s ease;
+          z-index: 1000;
+          box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar header {
+          font-size: 26px; /* Increased font size */
+          font-weight: 700; /* Bold font weight */
+          color: #f9fbe7; /* Light background */
+          line-height: 70px;
+          text-align: center;
+          background: #1e56a0; /* Dark blue header */
+          user-select: none;
+      }
+
+      .sidebar ul a {
+          display: block;
+          height: 100%;
+          width: 100%;
+          line-height: 65px;
+          font-size: 20px;
+          color: #f9fbe7; /* Light text color */
+          font-weight: bold;
+          padding-left: 40px;
+          box-sizing: border-box;
+          border-bottom: 1px solid #1e56a0; /* Border to match header */
+          transition: .4s;
+      }
+
+      ul li:hover a {
+          padding-left: 50px;
+          background-color: #3c6382; /* Hover color */
+          color: #ffda79; /* Light accent color on hover */
+      }
+
+      .sidebar ul a i {
+          margin-right: 16px;
+          color: #ffda79; /* Icon color */
+      }
+
+      #check {
+          display: none;
+      }
+
+      label #btn, label #cancel {
+          position: absolute;      
+          border-radius: 3px;
+          cursor: pointer;
+          color: #0a3d62;
+      }
+
+      label #btn {
+          left: 40px;
+          top: 25px;
+          font-size: 35px;
+          padding: 6px 12px;
+          transition: all .5s;
+      }
+
+      label #cancel {
+          z-index: 1111;
+          left: -195px;
+          top: 17px;
+          font-size: 30px;
+          color: #ffda79;
+          padding: 4px 9px;
+          transition: all .5s ease;
+      }
+
+      #check:checked ~ .sidebar {
+          left: 0;
+      }
+
+      #check:checked ~ label #btn {
+          left: 250px;
+          opacity: 0;
+          pointer-events: none;
+      }
+
+      #check:checked ~ label #cancel {
+          left: 195px;
+      }
+
+      #check:checked ~ section {
+          margin-left: 250px;
+      }
+
+      /* Section styling */
+      section {
+          height: auto;
+          padding: 20px;
+          background-color: #f9fbe7; /* Light green background */
+          transition: all .5s;
+          color: #333; /* Text color */
+      }
+
+      h1 {
+          color: #1e56a0; /* Dark blue */
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 32px; /* Increased size for main heading */
+          font-weight: 700; /* Bold */
+      }
+
+      h2 {
+          color: #0a3d62; /* Darker blue */
+          margin-top: 20px;
+          text-align: center;
+          font-size: 28px; /* Increased size for subheadings */
+          font-weight: 600; /* Semi-bold */
+      }
+
+      p {
+          color: #555; /* Darker text color */
+          line-height: 1.6; /* Improved line spacing */
+          margin: 20px 0;
+          text-align: center;
+          font-size: 18px; /* Increased font size for paragraphs */
+          letter-spacing: 0.5px; /* Slightly increased letter spacing */
+      }
+
+      /* About Section Styling */
+      .about-section {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: 50px 0;
+      }
+
+      .about-member {
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          margin: 15px;
+          padding: 20px;
+          text-align: center;
+          width: 300px; /* Width of each about section */
+          transition: transform 0.3s, box-shadow 0.3s;
+          cursor: pointer;
+      }
+
+      .about-member:hover {
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .about-member:active {
+          box-shadow: 0 0 20px rgba(30, 86, 160, 0.6); /* Glow effect */
+      }
+
+      .about-member h3 {
+          color: #1e56a0; /* Dark blue */
+          margin-bottom: 10px;
+          font-size: 22px; /* Increased size for about section titles */
+          font-weight: 700; /* Bold */
+      }
+
+      .about-member p {
+          color: #777; /* Light gray */
+          font-size: 18px; /* Increased size for about section descriptions */
+      }
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="check">
+  <label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
+  <div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('u_home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+        <li><a href="{{ url_for('u_about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('u_e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+        <li><a href="{{ url_for('u_cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+        <li><a href="{{ url_for('u_contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+        <li><a href="{{ url_for('u_logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    </ul>
+  </div>
+  <section>
+      <h2>Welcome to MartMate!</h2>
+      <p>At MartMate, we strive to provide you with the freshest food items possible. Our mission is to ensure that you never have to worry about the quality of your groceries. Through our innovative freshness checking system, we guarantee that your food is always safe and delicious.</p>
+      <p>We believe that every meal should be a delightful experience, and we are committed to making that happen for you!</p>
+
+      <h2>Our Values</h2>
+      <div class="about-section">
+          <div class="about-member">
+              <h3>Freshness Guarantee</h3>
+              <p>We prioritize the freshness of our food products to ensure your safety and satisfaction.</p>
+          </div>
+          <div class="about-member">
+              <h3>Sustainable Sourcing</h3>
+              <p>We engage in sustainable sourcing practices to support eco-friendly agriculture.</p>
+          </div>
+          <div class="about-member">
+              <h3>Customer Focused</h3>
+              <p>Your satisfaction is our top priority, and we aim to exceed your expectations.</p>
+          </div>
+          <div class="about-member">
+              <h3>Technology Driven</h3>
+              <p>Using advanced technology, we provide you with real-time updates on food freshness.</p>
+          </div>
+      </div>
+  </section>
+</body>
+</html>

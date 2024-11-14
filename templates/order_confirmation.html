@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGROVISTA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Light gray background */
+            overflow-x: hidden;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav {
+            position: sticky; /* Make the navbar sticky */
+            top: 0; /* Position at the top */
+            background-color: #333;
+            z-index: 1000; /* Ensure it stays above other elements */
+        }
+
+         
+        
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff9800;
+        }
+
+        .container {
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            margin: 100px auto 20px;
+            text-align: center; /* Centering text */
+            animation: slideInUp 1.5s ease-in-out;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h3 {
+            color: #333; /* Dark color */
+            margin: 20px 0;
+            font-weight: bold; /* Bold */
+        }
+
+        h2 {
+            color: #2c3e50; /* Darker text color */
+            margin: 20px 0;
+            font-weight: 700; /* Bold */
+            font-size: 2.5rem; /* Larger font size */
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 20px 0; /* Increased margin for better spacing */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin-bottom: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1, h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AGROVISTA</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="{{ url_for('crop_prediction') }}">Crop Prediction</a></li>
+            <li><a href="{{ url_for('disease_prediction') }}">Disease Prediction</a></li>
+            <li><a href="{{ url_for('e_commerce') }}" class="active">E-commerce</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h3>Your order has been successfully placed.</h3>
+        <h2>Thank You for Your Order!</h2>
+        <hr>
+        <p>We appreciate your business and will process your order shortly.</p>
+    </div>
+</body>
+</html>

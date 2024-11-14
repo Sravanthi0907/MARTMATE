@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+      /* Reset and Base Styling */
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        text-decoration: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+        background-color: #f9fbe7; /* Light green background */
+        overflow-x: hidden;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background: #0a3d62; /* Darker blue */
+        transition: all .5s ease;
+        z-index: 1000;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar header {
+        font-size: 30px; /* Increased font size */
+        font-weight: 700; /* Bold font weight */
+        color: #f9fbe7; /* Light background */
+        line-height: 70px;
+        text-align: center;
+        background: #1e56a0; /* Dark blue header */
+        user-select: none;
+    }
+
+    .sidebar ul a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 70px; /* Increased line height for better spacing */
+        font-size: 22px; /* Increased font size */
+        color: #f9fbe7; /* Light text color */
+        font-weight: bold;
+        padding-left: 40px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #1e56a0; /* Border to match header */
+        transition: .4s;
+    }
+
+    ul li:hover a {
+        padding-left: 50px;
+        background-color: #3c6382; /* Hover color */
+        color: #ffda79; /* Light accent color on hover */
+    }
+
+    .sidebar ul a i {
+        margin-right: 16px;
+        color: #ffda79; /* Icon color */
+    }
+
+    #check {
+        display: none;
+    }
+
+    label #btn, label #cancel {
+        position: absolute;      
+        border-radius: 3px;
+        cursor: pointer;
+        color: #0a3d62;
+    }
+
+    label #btn {
+        left: 40px;
+        top: 25px;
+        font-size: 35px;
+        padding: 6px 12px;
+        transition: all .5s;
+    }
+
+    label #cancel {
+        z-index: 1111;
+        left: -195px;
+        top: 17px;
+        font-size: 30px;
+        color: #ffda79;
+        padding: 4px 9px;
+        transition: all .5s ease;
+    }
+
+    #check:checked ~ .sidebar {
+        left: 0;
+    }
+
+    #check:checked ~ label #btn {
+        left: 250px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    #check:checked ~ label #cancel {
+        left: 195px;
+    }
+
+    #check:checked ~ section {
+        margin-left: 250px;
+    }
+
+    /* Section styling */
+    section {
+        height: auto;
+        padding: 40px; /* Increased padding for spaciousness */
+        background-color: #f9fbe7; /* Light green background */
+        transition: all .5s;
+        color: #333; /* Text color */
+    }
+
+    h1 {
+        color: #1e56a0; /* Dark blue */
+        text-align: center;
+        margin-bottom: 30px; /* Increased margin for more spacing */
+        font-size: 42px; /* Increased size for main heading */
+        font-weight: 900; /* Bold */
+    }
+
+    h2 {
+        color: #0a3d62; /* Darker blue */
+        margin-top: 25px; /* Increased margin for spacing */
+        text-align: center;
+        font-size: 36px; /* Increased size for subheadings */
+        font-weight: 800; /* Semi-bold */
+    }
+
+    p {
+        color: #555; /* Darker text color */
+        line-height: 1.8; /* Improved line spacing */
+        margin: 25px 0; /* Increased margin for better spacing */
+        text-align: center;
+        font-size: 20px; /* Increased font size for paragraphs */
+        letter-spacing: 0.5px; /* Slightly increased letter spacing */
+    }
+
+    /* Form and Table Styling */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    form label {
+        font-size: 20px; /* Increased label size */
+        font-weight: bold; /* Bold label */
+        margin-bottom: 10px; /* Space between label and input */
+    }
+
+    form input {
+        padding: 12px; /* Increased padding for inputs */
+        border: 2px solid #1e56a0;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 350px; /* Slightly increased max-width */
+        margin-bottom: 15px; /* Increased margin */
+        font-size: 18px; /* Increased font size for input */
+    }
+
+    form button {
+        padding: 12px 15px; /* Increased padding */
+        background-color: #1e56a0;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 18px; /* Increased button font size */
+    }
+
+    form button:hover {
+        background-color: #0a3d62;
+    }
+
+    .table-container {
+        overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    }
+
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 30px auto; /* Center the table and add margin on top */
+    }
+
+
+    th {
+        background-color: #1e56a0; /* Dark blue */
+        color: #fff; /* White text for headers */
+        font-size: 20px; /* Increased font size for table headers */
+        padding:1.7ex;
+    }
+
+    td {
+        padding: 15px; /* Increased padding for cells */
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #333; /* Dark text color for table cells */
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .error {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 18px; /* Increased error message font size */
+    }
+
+    .message {
+        color: green;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 18px; /* Increased message font size */
+    }
+
+    .add-to-cart-btn {
+        background-color: #1e56a0;
+        color: white;
+        border: none;
+        padding: 8px 15px; /* Increased padding for button */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px; /* Increased button font size */
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #0a3d62;
+    }
+
+  </style>
+</head>
+<body>
+
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+</label>
+
+<div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+        <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('checker') }}"><i class="fas fa-check-circle"></i>Fresh Check</a></li>
+        <li><a href="{{ url_for('e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    </ul>
+</div>
+
+<section>
+
+    <!-- Form Section -->
+    <form method="POST">
+        <label for="expiration_date">Enter Expiration Date (dd-mm-yyyy):</label>
+        <input type="text" id="expiration_date" name="expiration_date" placeholder="dd-mm-yyyy" required>
+        <button type="submit">Check Expiration</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <!-- Product Table -->
+    {% if products %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                        <th>Purchase Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product['Product Name'] }}</td>
+                            <td>{{ product['Quantity'] }}</td>
+                            <td>{{ product['Packaging'] }}</td>
+                            <td>{{ product['Purchase Price'] }}</td>
+                            <td>
+                                <button type="button" class="add-to-cart-btn" data-product-name="{{ product['Product Name'].strip() }}">Add to Cart</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll('.add-to-cart-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productName = this.getAttribute('data-product-name');
+            fetch(`/add_to_cart/${encodeURIComponent(productName)}`, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => alert(`${data.product_name} has been added to the cart!`))
+                .catch(error => {
+                    console.error('Error:', error); // Log error details
+                    alert('Failed to add product to cart.'); // This can be enhanced to show specific error messages if needed.
+                });
+        });
+    });
+});
+
+</script>
+</body>
+</html>

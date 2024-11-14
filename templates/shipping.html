@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+      /* Reset and Base Styling */
+      * {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          text-decoration: none;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+          background-color: #f9fbe7; /* Light green background */
+          overflow-x: hidden;
+      }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #0a3d62; /* Darker blue */
+            transition: all .5s ease;
+            z-index: 1000;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar header {
+            font-size: 26px; /* Increased font size */
+            font-weight: 700; /* Bold font weight */
+            color: #f9fbe7; /* Light background */
+            line-height: 70px;
+            text-align: center;
+            background: #1e56a0; /* Dark blue header */
+            user-select: none;
+        }
+
+        .sidebar ul a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 65px;
+            font-size: 20px;
+            color: #f9fbe7; /* Light text color */
+            font-weight: bold;
+            padding-left: 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #1e56a0; /* Border to match header */
+            transition: .4s;
+        }
+
+        ul li:hover a {
+            padding-left: 50px;
+            background-color: #3c6382; /* Hover color */
+            color: #ffda79; /* Light accent color on hover */
+        }
+
+        .sidebar ul a i {
+            margin-right: 16px;
+            color: #ffda79; /* Icon color */
+        }
+
+        #check {
+            display: none;
+        }
+
+        label #btn, label #cancel {
+            position: absolute;      
+            border-radius: 3px;
+            cursor: pointer;
+            color: #0a3d62;
+        }
+
+        label #btn {
+            left: 40px;
+            top: 25px;
+            font-size: 35px;
+            padding: 6px 12px;
+            transition: all .5s;
+        }
+
+        label #cancel {
+            z-index: 1111;
+            left: -195px;
+            top: 17px;
+            font-size: 30px;
+            color: #ffda79;
+            padding: 4px 9px;
+            transition: all .5s ease;
+        }
+
+        #check:checked ~ .sidebar {
+            left: 0;
+        }
+
+        #check:checked ~ label #btn {
+            left: 250px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #check:checked ~ label #cancel {
+            left: 195px;
+        }
+
+        #check:checked ~ section {
+            margin-left: 250px;
+        }
+
+            /* Section styling */
+            section {
+                height: auto;
+                padding: 40px; /* Increased padding for spaciousness */
+                background-color: #f9fbe7; /* Light green background */
+                transition: all .5s;
+                color: #333; /* Text color */
+            }
+
+            h1 {
+                color: #1e56a0; /* Dark blue */
+                text-align: center;
+                margin-bottom: 30px; /* Increased margin for more spacing */
+                font-size: 42px; /* Increased size for main heading */
+                font-weight: 900; /* Bold */
+            }
+
+            h2 {
+                color: #0a3d62; /* Darker blue */
+                margin-top: 25px; /* Increased margin for spacing */
+                text-align: center;
+                font-size: 36px; /* Increased size for subheadings */
+                font-weight: 800; /* Semi-bold */
+            }
+
+            p {
+                color: #555; /* Darker text color */
+                line-height: 1.8; /* Improved line spacing */
+                margin: 25px 0; /* Increased margin for better spacing */
+                text-align: center;
+                font-size: 20px; /* Increased font size for paragraphs */
+                letter-spacing: 0.5px; /* Slightly increased letter spacing */
+            }
+
+        /* Form Styling */
+        .form-container {
+            max-width: 500px; /* Set consistent max-width */
+            margin: 0 auto; /* Center form container */
+            padding: 20px; /* Added padding for spacing */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* Stretch to fill container width */
+            margin-bottom: 40px;
+        }
+
+        form label {
+            font-size: 20px; /* Increased label size */
+            font-weight: bold; /* Bold label */
+            margin-bottom: 10px; /* Space between label and input */
+        }
+
+        form input,
+        form textarea {
+            padding: 12px; /* Increased padding for inputs */
+            border: 1px solid #1e56a0;
+            border-radius: 5px;
+            width: 100%; /* Ensure inputs take full width */
+            margin-bottom: 15px; /* Increased margin */
+            font-size: 18px; /* Increased font size for input */
+        }
+
+        form button {
+            padding: 12px 15px; /* Increased padding */
+            background-color: #1e56a0;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 18px; /* Increased button font size */
+            width: 100%; /* Button takes full width */
+        }
+
+        form button:hover {
+            background-color: #0a3d62;
+        }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="check">
+<label for="check">
+    <i id="btn" class="fas fa-bars"></i>
+    <i id="cancel" class="fas fa-times"></i>
+</label>
+
+<div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+        <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('checker') }}"><i class="fas fa-check-circle"></i>Fresh Check</a></li>
+        <li><a href="{{ url_for('e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    </ul>
+</div>
+
+<section>
+
+    <div class="form-container">
+        <h2>Enter Your Shipping Information</h2>
+        <form action="{{ url_for('shipping') }}" method="post">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <div class="form-group">
+                <label for="zipcode">Pin Code</label>
+                <input type="text" id="zipcode" name="zipcode" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <!-- In the form-container div -->
+            <div class="form-group">
+                <button type="submit" class="submit-button">Proceed to Payment</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

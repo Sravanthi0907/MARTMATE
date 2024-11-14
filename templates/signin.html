@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Raleway:wght@400&display=swap" rel="stylesheet">
+  <style>
+      /* Reset and Base Styling */
+      * {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          text-decoration: none;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Montserrat', sans-serif;
+          background: linear-gradient(120deg, #f0f4c3, #f9fbe7);
+          overflow-x: hidden;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+          position: fixed;
+          left: -250px;
+          width: 250px;
+          height: 100%;
+          background: #0a3d62; /* Darker blue */
+          transition: all .5s ease;
+          z-index: 1000;
+          box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar header {
+          font-size: 22px;
+          font-weight: bold;
+          color: #f9fbe7; /* Light background */
+          line-height: 70px;
+          text-align: center;
+          background: #1e56a0; /* Dark blue header */
+          user-select: none;
+      }
+
+      .sidebar ul a {
+          display: block;
+          height: 100%;
+          width: 100%;
+          line-height: 65px;
+          font-size: 20px;
+          color: #f9fbe7; /* Light text color */
+          font-weight: bold;
+          padding-left: 40px;
+          box-sizing: border-box;
+          border-bottom: 1px solid #1e56a0; /* Border to match header */
+          transition: .4s;
+      }
+
+      ul li:hover a {
+          padding-left: 50px;
+          background-color: #3c6382; /* Hover color */
+          color: #ffda79; /* Light accent color on hover */
+      }
+
+      .sidebar ul a i {
+          margin-right: 16px;
+          color: #ffda79; /* Icon color */
+      }
+
+      #check {
+          display: none;
+      }
+
+      label #btn, label #cancel {
+          position: absolute;      
+          border-radius: 3px;
+          cursor: pointer;
+          color: #0a3d62;
+      }
+
+      label #btn {
+          left: 40px;
+          top: 25px;
+          font-size: 35px;
+          padding: 6px 12px;
+          transition: all .5s;
+      }
+
+      label #cancel {
+          z-index: 1111;
+          left: -195px;
+          top: 17px;
+          font-size: 30px;
+          color: #ffda79;
+          padding: 4px 9px;
+          transition: all .5s ease;
+      }
+
+      #check:checked ~ .sidebar {
+          left: 0;
+      }
+
+      #check:checked ~ label #btn {
+          left: 250px;
+          opacity: 0;
+          pointer-events: none;
+      }
+
+      #check:checked ~ label #cancel {
+          left: 195px;
+      }
+
+      #check:checked ~ section {
+          margin-left: 250px;
+      }
+
+      /* Section styling for consistency with MartMate theme */
+      section {
+          height: 100vh;
+          padding: 20px;
+          background: #f9fbe7;
+          transition: all .5s;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      /* Login Form Styling */
+        .login-form {
+            background: white;
+            padding: 30px; /* Increased padding for a more spacious feel */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slightly increased shadow for depth */
+            width: 420px; /* Increased width */
+            max-width: 90%; /* Responsive design */
+        }
+
+        .login-form h2 {
+            margin-bottom: 30px; /* Increased margin for more space below the title */
+            text-align: center;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 15px; /* Maintained padding for input fields */
+            margin: 20px 0; /* Increased margin for more space between input fields */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-form label {
+            font-size: 15px;
+        }
+
+        .login-form input[type="checkbox"] {
+            margin-right: 10px; /* Increased margin for checkbox spacing */
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 15px; /* Increased padding for button */
+            background-color: #0a3d62;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px; /* Added margin for space above the button */
+        }
+
+        .login-form button:hover {
+            background-color: #1e56a0;
+        }
+
+        .login-form .create-account {
+            text-align: center;
+            margin-top: 20px; /* Increased margin for more space above this section */
+        }
+
+        .login-form .create-account a {
+            color: #0a3d62;
+            font-weight: bold;
+        }
+
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="check">
+  <label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
+  <div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('signin') }}"><i class="fas fa-sign-in-alt"></i>Admin Login</a></li>
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i>User Login</a></li>
+        <li><a href="{{ url_for('i_about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('i_contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+    </ul>
+  </div>
+  <section>
+    <form class="login-form" action="{{ url_for('home') }}" method="GET">
+        <h2>Admin Login</h2>
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <label>
+            <input type="checkbox"> Remember Me
+        </label>
+        <button type="submit">Sign In</button>
+    </form>
+    
+</section>
+
+</body>
+</html>

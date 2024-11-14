@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARTMATE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styling */
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fbe7; /* Light green background */
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #0a3d62; /* Darker blue */
+            transition: all .5s ease;
+            z-index: 1000;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar header {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f9fbe7; /* Light background */
+            line-height: 70px;
+            text-align: center;
+            background: #1e56a0; /* Dark blue header */
+            user-select: none;
+        }
+
+        .sidebar ul a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 65px;
+            font-size: 20px;
+            color: #f9fbe7; /* Light text color */
+            font-weight: bold;
+            padding-left: 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #1e56a0; /* Border to match header */
+            transition: .4s;
+        }
+
+        ul li:hover a {
+            padding-left: 50px;
+            background-color: #3c6382; /* Hover color */
+            color: #ffda79; /* Light accent color on hover */
+        }
+
+        .sidebar ul a i {
+            margin-right: 16px;
+            color: #ffda79; /* Icon color */
+        }
+
+        #check {
+            display: none;
+        }
+
+        label #btn, label #cancel {
+            position: absolute;      
+            border-radius: 3px;
+            cursor: pointer;
+            color: #0a3d62;
+        }
+
+        label #btn {
+            left: 40px;
+            top: 25px;
+            font-size: 35px;
+            padding: 6px 12px;
+            transition: all .5s;
+        }
+
+        label #cancel {
+            z-index: 1111;
+            left: -195px;
+            top: 17px;
+            font-size: 30px;
+            color: #ffda79;
+            padding: 4px 9px;
+            transition: all .5s ease;
+        }
+
+        #check:checked ~ .sidebar {
+            left: 0;
+        }
+
+        #check:checked ~ label #btn {
+            left: 250px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #check:checked ~ label #cancel {
+            left: 195px;
+        }
+
+        #check:checked ~ section {
+            margin-left: 250px;
+        }
+
+        /* Section styling */
+        section {
+            height: auto;
+            padding: 20px;
+            background-color: #f9fbe7; /* Light green background */
+            transition: all .5s;
+            color: #333; /* Text color */
+        }
+
+        /* Product Container Styling */
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px; /* Gap between cards */
+            justify-content: center;
+            padding: 15px; /* Padding for the container */
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px; /* Reduced margin for better spacing */
+            padding: 15px; /* Reduced padding for card */
+            text-align: center;
+            width: 300px; /* Reduced width of each card */
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative; /* For pseudo-elements */
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px; /* Fixed height for uniformity */
+            object-fit: cover; /* Ensures images cover the space */
+            border-radius: 8px;
+            margin-bottom: 10px; /* Space below image */
+        }
+
+        .pricing {
+            margin: 10px 0;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #757575; /* Gray color for the original price */
+        }
+
+        .discount {
+            color: #d50000; /* Red color for discount percentage */
+            font-weight: bold;
+        }
+
+        .discounted-price {
+            color: #388e3c; /* Green color for the discounted price */
+            font-weight: bold;
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem; /* Font size for product name */
+            color: #1e56a0;
+            margin: 8px 0;
+        }
+
+        .product-card p {
+            font-size: 1rem; /* Font size for price */
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #1e56a0;
+            color: white;
+            border: none;
+            padding: 8px 12px; /* Reduced padding for button */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px; /* Button font size */
+            margin-top: 10px; /* Space above button */
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0a3d62;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .product-card {
+                width: calc(45% - 20px); /* Adjusted for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: 100%; /* Full width on very small screens */
+            }
+
+            .sidebar {
+                width: 200px; /* Adjust sidebar width */
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar" id="sidebar">
+        <header>MARTMATE</header>
+        <ul>
+            <li><a href="{{ url_for('u_home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+            <li><a href="{{ url_for('u_about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+            <li><a href="{{ url_for('u_e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+            <li><a href="{{ url_for('u_cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+            <li><a href="{{ url_for('u_contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+            <li><a href="{{ url_for('u_logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+        </ul>
+    </div>
+    <section>
+        <div class="main-content" id="main-content">
+            <div class="product-container">
+                <div class="product-card">
+                    <img src="static/images/1.jpg" alt="Kerala Banana Chips">
+                    <h3>Kerala Banana Chips</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹600</p> <!-- Original Price -->
+                        <p class="discount">Discount: 19% OFF</p> <!-- Discount Percentage -->
+                        <p class="discounted-price">Now: ₹486</p> <!-- Discounted Price -->
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Kerala Banana Chips">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/2.jpg" alt="Dailyum Crispy Fried Noodles">
+                    <h3>Dailyum Crispy Fried Noodles</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹240</p>
+                        <p class="discount">Discount: 4% OFF</p>
+                        <p class="discounted-price">Now: ₹230</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Dailyum Crispy Fried Noodles">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/3.jpg" alt="JOLOCHIP Hottest CHIP Madness Last Challenge">
+                    <h3>JOLOCHIP Hottest CHIP Madness Last Challenge</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹254</p>
+                        <p class="discount">Discount: 3% OFF</p>
+                        <p class="discounted-price">Now: ₹249</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="JOLOCHIP Hottest CHIP Madness Last Challenge">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/4.jpg" alt="Royal foodery BHAKARWADI">
+                    <h3>Royal foodery BHAKARWADI</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹799</p>
+                        <p class="discount">Discount: 64% OFF</p>
+                        <p class="discounted-price">Now: ₹285</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Royal foodery BHAKARWADI">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/5.jpg" alt="GOPAL NAMKEEN Bhavnagri Gathiya">
+                    <h3>GOPAL NAMKEEN Bhavnagri Gathiya</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹70</p>
+                        <p class="discount">Discount: 1% OFF</p>
+                        <p class="discounted-price">Now: ₹69</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="GOPAL NAMKEEN Bhavnagri Gathiya">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/6.jpg" alt="Vedic Garden Combo">
+                    <h3>Vedic Garden Combo</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹399</p>
+                        <p class="discount">Discount: 26% OFF</p>
+                        <p class="discounted-price">Now: ₹293</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Vedic Garden Combo">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/7.jpg" alt="Haldiram's Moong Dal">
+                    <h3>Haldiram's Moong Dal</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹260</p>
+                        <p class="discount">Discount: 22% OFF</p>
+                        <p class="discounted-price">Now: ₹201</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Haldiram's Moong Dal">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/8.jpg" alt="TONG GARDEN Party Snack">
+                    <h3>TONG GARDEN Party Snack</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹350</p>
+                        <p class="discount">Discount: 28% OFF</p>
+                        <p class="discounted-price">Now: ₹250</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="TONG GARDEN Party Snack">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/9.jpg" alt="GOPAL NAMKEEN - Chana Dal Namkeen">
+                    <h3>GOPAL NAMKEEN - Chana Dal Namkeen</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹70</p>
+                        <p class="discount">Discount: 1% OFF</p>
+                        <p class="discounted-price">Now: ₹69</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="GOPAL NAMKEEN - Chana Dal Namkeen">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/10.jpg" alt="Haldiram's Nagpur All In One Mixture">
+                    <h3>Haldiram's Nagpur All In One Mixture</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹200</p>
+                        <p class="discount">Discount: 4% OFF</p>
+                        <p class="discounted-price">Now: ₹191</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Haldiram's Nagpur All In One Mixture">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/11.jpg" alt="Vedic Garden RAGI BEETROOT Healthy Khakhra">
+                    <h3>Vedic Garden RAGI BEETROOT Healthy Khakhra</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹199</p>
+                        <p class="discount">Discount: 18% OFF</p>
+                        <p class="discounted-price">Now: ₹162</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Vedic Garden RAGI BEETROOT Healthy Khakhra">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/12.jpg" alt="NATURE CONNECT Mini Bhakarwadi">
+                    <h3>NATURE CONNECT Mini Bhakarwadi</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹329</p>
+                        <p class="discount">Discount: 45% OFF</p>
+                        <p class="discounted-price">Now: ₹179</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="NATURE CONNECT Mini Bhakarwadi">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/13.jpg" alt="Haldiram's Bhujia Sev">
+                    <h3>Haldiram's Bhujia Sev</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹105</p>
+                        <p class="discount">Discount: 25% OFF</p>
+                        <p class="discounted-price">Now: ₹78</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Haldiram's Bhujia Sev">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/14.jpg" alt="GOPAL NAMKEEN Vanela Gathiya">
+                    <h3>GOPAL NAMKEEN Vanela Gathiya</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹40</p>
+                        <p class="discount">Discount: 2% OFF</p>
+                        <p class="discounted-price">Now: ₹39</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="GOPAL NAMKEEN Vanela Gathiya">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="static/images/15.jpg" alt="Haldiram's Aloo Bhujia">
+                    <h3>Haldiram's Aloo Bhujia</h3>
+                    <div class="pricing">
+                        <p class="original-price">₹225</p>
+                        <p class="discount">Discount: 6% OFF</p>
+                        <p class="discounted-price">Now: ₹210</p>
+                    </div>
+                    <button type="button" class="add-to-cart-btn" data-product="Haldiram's Aloo Bhujia">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll('.add-to-cart-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productName = this.getAttribute('data-product');
+                    fetch(`/u_add_to_cart/${encodeURIComponent(productName)}`, { 
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json' 
+                        },
+                        body: JSON.stringify({ product_name: productName }) 
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(`${data.product_name} has been added to the cart!`);
+                        } else {
+                            alert('Failed to add product to cart.');
+                        }
+                    })
+                    .catch(error => alert('Failed to add product to cart.'));
+                });
+            });
+        });
+    </script>
+    
+    </body>
+    </html>
+    

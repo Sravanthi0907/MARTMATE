@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARTMATE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styling */
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+            background-color: #f9fbe7; /* Light green background */
+            overflow-x: hidden;
+            height: 100vh; /* Full height */
+            display: flex; /* Flex display */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #0a3d62; /* Darker blue */
+            transition: all .5s ease;
+            z-index: 1000;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar header {
+            font-size: 26px; /* Increased font size */
+            font-weight: 700; /* Bold font weight */
+            color: #f9fbe7; /* Light background */
+            line-height: 70px;
+            text-align: center;
+            background: #1e56a0; /* Dark blue header */
+            user-select: none;
+        }
+
+        .sidebar ul a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 65px;
+            font-size: 20px;
+            color: #f9fbe7; /* Light text color */
+            font-weight: bold;
+            padding-left: 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #1e56a0; /* Border to match header */
+            transition: .4s;
+        }
+
+        ul li:hover a {
+            padding-left: 50px;
+            background-color: #3c6382; /* Hover color */
+            color: #ffda79; /* Light accent color on hover */
+        }
+
+        .sidebar ul a i {
+            margin-right: 16px;
+            color: #ffda79; /* Icon color */
+        }
+
+        #check {
+            display: none;
+        }
+
+        label #btn, label #cancel {
+            position: absolute;      
+            border-radius: 3px;
+            cursor: pointer;
+            color: #0a3d62;
+        }
+
+        label #btn {
+            left: 40px;
+            top: 25px;
+            font-size: 35px;
+            padding: 6px 12px;
+            transition: all .5s;
+        }
+
+        label #cancel {
+            z-index: 1111;
+            left: -195px;
+            top: 17px;
+            font-size: 30px;
+            color: #ffda79;
+            padding: 4px 9px;
+            transition: all .5s ease;
+        }
+
+        #check:checked ~ .sidebar {
+            left: 0;
+        }
+
+        #check:checked ~ label #btn {
+            left: 250px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #check:checked ~ label #cancel {
+            left: 195px;
+        }
+
+        #check:checked ~ section {
+            margin-left: 250px;
+        }
+
+        /* Section styling */
+        section {
+            height: auto;
+            padding: 20px;
+            background-color: #f9fbe7; /* Light green background */
+            transition: all .5s;
+            color: #333; /* Text color */
+            text-align: center; /* Center text */
+        }
+
+        /* Total Amount Display */
+        .total-amount {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* QR Code */
+        .qr-code {
+            position: relative; /* Position relative for animation */
+            width: 300px; /* Fixed width for centering */
+            height: 300px; /* Fixed height for centering */
+            perspective: 1000px; /* Perspective for 3D effect */
+            margin: auto; /* Center horizontally */
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            transition: transform 0.6s; /* Animation for flip effect */
+            backface-visibility: hidden; /* Prevents back side from showing */
+            position: absolute; /* Stack images */
+            top: 0;
+            left: 0;
+        }
+
+        /* Second Image for Flipping */
+        .qr-code img.second {
+            transform: rotateY(180deg); /* Start rotated */
+        }
+
+        /* Success Message */
+        .success-message {
+            font-size: 1.5em;
+            color: #0a3d62;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+    <script>
+        // Display the success message after a delay
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                // Show success message
+                const successMessage = document.querySelector('.success-message');
+                successMessage.style.display = 'block';
+
+                // Trigger the flip effect
+                const qrCode = document.querySelector('.qr-code img:first-of-type');
+                const qrCodeSecond = document.querySelector('.qr-code img.second');
+                qrCode.style.transform = 'rotateY(180deg)'; // Flip first image
+                qrCodeSecond.style.transform = 'rotateY(0deg)'; // Show second image
+            }, 4000); // Show success message after 3 seconds
+        });
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+        <header>MARTMATE</header>
+        <ul>
+            <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+            <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+            <li><a href="{{ url_for('checker') }}"><i class="fas fa-check-circle"></i>Fresh Check</a></li>
+            <li><a href="{{ url_for('e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+            <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+            <li><a href="{{ url_for('contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+        </ul>
+    </div>
+    <section>
+        <p class="total-amount">Total Amount: ₹250</p>
+        <p> </p>
+
+        <div class="qr-code">
+
+            <img src="static\images\scan.jpg" alt="QR Code for Payment">
+            <img src="static\images\tick.jpg" alt="Thank You!" class="second">
+        </div>
+        <div class="success-message">
+            <p>Your order was confirmed! Thank you for shopping with us!</p>
+        </div>
+    </section>
+</body>
+</html>

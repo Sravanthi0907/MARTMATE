@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUR STORY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fbe7;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px; /* Adjusted for more compact spacing */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px; /* Reduced padding */
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffeb3b;
+        }
+
+        .hero {
+            background-image: url('https://source.unsplash.com/1600x900/?food');
+            background-size: cover;
+            background-position: center;
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin: 0;
+            color: #ffeb3b;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: slideInUp 1.5s ease-in-out;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        p {
+            color: black;
+            line-height: 1.8;
+            margin: 20px 0;
+            text-align: center;
+            animation: fadeInUp 1.2s ease-in-out;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            animation: fadeInUp 1.3s ease-in-out;
+        }
+
+        ul li {
+            padding: 5px;
+            color: #555;
+            text-align: center;
+        }
+
+        .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .team-member {
+            background: #e8f5e9;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 30px;
+            flex: 1 1 30%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: bounceIn 1.5s ease-in-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.3s ease-in-out;
+        }
+
+        .team-member img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            animation: rotateIn 2s ease-in-out;
+        }
+
+        @keyframes rotateIn {
+            from { transform: rotate(-360deg); opacity: 0; }
+            to { transform: rotate(0deg); opacity: 1; }
+        }
+
+        .team-member h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="font-size: 3em;">MARTMATE</h1>
+
+    <nav>
+        <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="abouts.html">About</a></li>
+            <li><a href="contacts.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>OUR STORY</h1>
+</div>
+
+<div class="content">
+    <h2>Welcome to Our Food Family!</h2>
+    <p>At MartMate, we are dedicated to ensuring the freshness of your food products. Our team is committed to providing you with the best tools and services for a smart shopping experience.</p>
+
+    <h2>Our Mission</h2>
+    <p>Our mission is to empower individuals to make informed choices about their food through innovative technology and a supportive community.</p>
+
+    <h2>Our Values</h2>
+    <ul>
+        <li>Freshness: We prioritize the quality and freshness of food.</li>
+        <li>Integrity: We promote honest and transparent practices.</li>
+        <li>Community: We believe in building a supportive food-loving community.</li>
+    </ul>
+
+    <h2>Meet Our Team</h2>
+    <div class="team">
+        <div class="team-member">
+            <img src="https://source.unsplash.com/200x200/?person" alt="Team Member 1">
+            <h3>SRAVANTHI</h3>
+            <p>99220041018</p>
+        </div>
+        <div class="team-member">
+            <img src="https://source.unsplash.com/200x200/?person" alt="Team Member 2">
+            <h3>DEVAMANI</h3>
+            <p>99220041019</p>
+        </div>
+        <div class="team-member">
+            <img src="https://source.unsplash.com/200x200/?person" alt="Team Member 3">
+            <h3>PRASANNA</h3>
+            <p>99220040988</p>
+        </div>
+        <div class="team-member">
+            <img src="https://source.unsplash.com/200x200/?person" alt="Team Member 4">
+            <h3>KAVYA SRI</h3>
+            <p>99220041001</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

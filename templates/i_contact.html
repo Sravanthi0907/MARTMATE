@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Raleway:wght@400&display=swap" rel="stylesheet">
+  <style>
+    /* Reset and Base Styling */
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(120deg, #f9fbe7, #f9fbe7);
+        overflow-x: hidden;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background: #0a3d62;
+        transition: all 0.5s ease;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .sidebar header {
+        font-size: 22px;
+        font-weight: bold;
+        color: #f9fbe7;
+        line-height: 70px;
+        text-align: center;
+        background: #1e56a0;
+    }
+
+    .sidebar ul a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 65px;
+        font-size: 20px;
+        color: #f9fbe7;
+        padding-left: 40px;
+        transition: 0.4s;
+    }
+
+    ul li:hover a {
+        padding-left: 50px;
+        background-color: #3c6382;
+        color: #ffda79;
+    }
+
+    .sidebar ul a i {
+        margin-right: 16px;
+        color: #ffda79;
+    }
+
+    /* Sidebar Toggle Button Styling */
+    #check {
+        display: none;
+    }
+
+    label #btn, label #cancel {
+        position: absolute;
+        border-radius: 3px;
+        cursor: pointer;
+        color: #0a3d62;
+    }
+
+    label #btn {
+        left: 40px;
+        top: 25px;
+        font-size: 35px;
+        padding: 6px 12px;
+        transition: all 0.5s;
+    }
+
+    label #cancel {
+        z-index: 1111;
+        left: -195px;
+        top: 17px;
+        font-size: 30px;
+        color: #ffda79;
+        padding: 4px 9px;
+        transition: all 0.5s ease;
+    }
+
+    #check:checked ~ .sidebar {
+        left: 0;
+    }
+
+    #check:checked ~ label #btn {
+        left: 250px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    #check:checked ~ label #cancel {
+        left: 195px;
+    }
+
+    #check:checked ~ .content {
+        margin-left: 250px;
+    }
+
+    /* Content Area */
+    .content {
+        padding: 50px;
+        margin-left: 0px;
+        background: #f9fbe7;
+        transition: margin-left 0.5s;
+    }
+
+    .content h2 {
+        font-size: 24px;
+        color: #0a3d62;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Centered Contact Form Styling */
+    form {
+        width: 45%; /* Decrease the width of the form */
+        margin: 0 auto; /* Centers form horizontally */
+        padding: 20px; /* Add padding around the form */
+    }
+
+    form label {
+        font-size: 18px;
+        color: black;
+        margin-top: 15px;
+        display: block;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form textarea {
+        width: 100%; /* Keep inputs full-width within the form */
+        padding: 12px; /* Increased padding for better touch area */
+        margin-top: 8px;
+        margin-bottom: 15px; /* Add bottom margin for spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        resize: vertical;
+    }
+
+    form button {
+        width: 100%; /* Align button width with input fields */
+        padding: 12px;
+        background-color: #0a3d62;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        margin-top: 10px; /* Decrease top margin for spacing */
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    form button:hover {
+        background-color: #1e56a0;
+    }
+
+    /* Notification Pop-Up Styling */
+    .notification {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background-color: #0a3d62;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.5s;
+    }
+
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="check">
+  <label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
+  <div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('signin') }}"><i class="fas fa-sign-in-alt"></i>Admin Login</a></li>
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i>User Login</a></li>
+        <li><a href="{{ url_for('i_about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('i_contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <h2>Facing any issues, feel free to reach out!</h2>
+    <form id="contactForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Send</button>
+    </form>
+    
+    <div class="notification" id="notification">
+        <!-- Notification message will be dynamically updated -->
+    </div>
+</div>
+
+<script>
+    // JavaScript for form submission and pop-up notification
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Get the name from the input field
+        var name = document.getElementById('name').value;
+
+        // Show the notification with the name
+        var notification = document.getElementById('notification');
+        
+        // Clear existing content
+        notification.innerHTML = ''; 
+        
+        // Create greeting element
+        var greetingElement = document.createElement('div');
+        greetingElement.textContent = 'Hey, ' + name + '!'; // Set greeting text
+        notification.appendChild(greetingElement); // Append greeting to notification
+
+        // Create message element
+        var messageElement = document.createElement('div');
+        messageElement.textContent = 'Your feedback has been sent successfully!'; // Set message text
+        notification.appendChild(messageElement); // Append message to notification
+
+        notification.style.display = 'block'; // Show the notification
+        notification.style.opacity = '1'; // Set opacity to 1 for visibility
+        
+        // Hide the notification after 3 seconds
+        setTimeout(function() {
+            notification.style.opacity = '0';
+            setTimeout(function() {
+                notification.style.display = 'none';
+            }, 500); // Match the timeout with CSS transition
+        }, 3000);
+
+        // Optionally, you can reset the form here if desired
+        this.reset();
+    });
+</script>
+
+
+
+</body>
+</html>

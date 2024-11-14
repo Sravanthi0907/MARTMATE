@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTMATE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+      /* Reset and Base Styling */
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        text-decoration: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+        background-color: #f9fbe7; /* Light green background */
+        overflow-x: hidden;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background: #0a3d62; /* Darker blue */
+        transition: all .5s ease;
+        z-index: 1000;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar header {
+        font-size: 30px; /* Increased font size */
+        font-weight: 700; /* Bold font weight */
+        color: #f9fbe7; /* Light background */
+        line-height: 70px;
+        text-align: center;
+        background: #1e56a0; /* Dark blue header */
+        user-select: none;
+    }
+
+    .sidebar ul a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 70px; /* Increased line height for better spacing */
+        font-size: 22px; /* Increased font size */
+        color: #f9fbe7; /* Light text color */
+        font-weight: bold;
+        padding-left: 40px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #1e56a0; /* Border to match header */
+        transition: .4s;
+    }
+
+    ul li:hover a {
+        padding-left: 50px;
+        background-color: #3c6382; /* Hover color */
+        color: #ffda79; /* Light accent color on hover */
+    }
+
+    .sidebar ul a i {
+        margin-right: 16px;
+        color: #ffda79; /* Icon color */
+    }
+
+    #check {
+        display: none;
+    }
+
+    label #btn, label #cancel {
+        position: absolute;      
+        border-radius: 3px;
+        cursor: pointer;
+        color: #0a3d62;
+    }
+
+    label #btn {
+        left: 40px;
+        top: 25px;
+        font-size: 35px;
+        padding: 6px 12px;
+        transition: all .5s;
+    }
+
+    label #cancel {
+        z-index: 1111;
+        left: -195px;
+        top: 17px;
+        font-size: 30px;
+        color: #ffda79;
+        padding: 4px 9px;
+        transition: all .5s ease;
+    }
+
+    #check:checked ~ .sidebar {
+        left: 0;
+    }
+
+    #check:checked ~ label #btn {
+        left: 250px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    #check:checked ~ label #cancel {
+        left: 195px;
+    }
+
+    #check:checked ~ section {
+        margin-left: 250px;
+    }
+
+    /* Section styling */
+    section {
+        height: auto;
+        padding: 40px; /* Increased padding for spaciousness */
+        background-color: #f9fbe7; /* Light green background */
+        transition: all .5s;
+        color: #333; /* Text color */
+    }
+
+    h1 {
+        color: #1e56a0; /* Dark blue */
+        text-align: center;
+        margin-bottom: 30px; /* Increased margin for more spacing */
+        font-size: 42px; /* Increased size for main heading */
+        font-weight: 900; /* Bold */
+    }
+
+    h2 {
+        color: #0a3d62; /* Darker blue */
+        margin-top: 25px; /* Increased margin for spacing */
+        text-align: center;
+        font-size: 36px; /* Increased size for subheadings */
+        font-weight: 800; /* Semi-bold */
+    }
+
+    p {
+        color: #555; /* Darker text color */
+        line-height: 1.8; /* Improved line spacing */
+        margin: 25px 0; /* Increased margin for better spacing */
+        text-align: center;
+        font-size: 20px; /* Increased font size for paragraphs */
+        letter-spacing: 0.5px; /* Slightly increased letter spacing */
+    }
+
+    /* Form and Table Styling */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .table-container {
+        overflow-x: auto; /* Allows horizontal scrolling on small screens */
+        transition: height 0.5s ease; /* Smooth height transition */
+        height: auto; /* Default height */
+    }
+
+    .table-container.collapsed {
+        height: 0; /* Collapse height */
+        overflow: hidden; /* Hide overflow when collapsed */
+    }
+
+    table {
+        width: 60%;
+        border-collapse: collapse;
+        margin: 30px auto; /* Center the table and add margin on top */
+    }
+
+    th {
+        background-color: #1e56a0; /* Dark blue */
+        color: #fff; /* White text for headers */
+        font-size: 20px; /* Increased font size for table headers */
+        padding:1.7ex;
+    }
+
+    td {
+        padding: 15px; /* Increased padding for cells */
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #333; /* Dark text color for table cells */
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Buy Button Styles */
+    .buy-button {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 20px auto;
+        padding: 12px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        color: white;
+        background-color: #1e56a0;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .buy-button:hover {
+        background-color: #0a3d62;
+        transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>MARTMATE</header>
+    <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home Plate</a></li>
+        <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i>Our Story</a></li>
+        <li><a href="{{ url_for('checker') }}"><i class="fas fa-check-circle"></i>Fresh Check</a></li>
+        <li><a href="{{ url_for('e_commerce') }}"><i class="fas fa-store"></i>Food Bazaar</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i>Food Trolley</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-phone-alt"></i>Reach Us</a></li>
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    </ul>
+</div>
+<section> 
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% if cart_items %}
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>Your cart is empty.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        
+        <!-- Buy Button -->
+        <a href="{{ url_for('shipping') }}" class="buy-button">Buy Item</a>
+    </div>
+</section>
+
+<script>
+    let isCollapsed = false;
+
+    function toggleTable() {
+        const tableContainer = document.getElementById("table-container");
+        if (isCollapsed) {
+            tableContainer.classList.remove("collapsed");
+            tableContainer.style.height = "auto"; // Expand to full height
+        } else {
+            tableContainer.classList.add("collapsed");
+            tableContainer.style.height = "0"; // Collapse height to 0
+        }
+        isCollapsed = !isCollapsed; // Toggle the state
+    }
+</script>
+</body>
+</html>
