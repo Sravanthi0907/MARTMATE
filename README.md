@@ -2,21 +2,28 @@ This web-based system is designed for retail stores to optimize food safety, red
 
 
 *Admin Features*:
+
 ✨ Admin Login
+
 Secure login for administrators to access and manage the platform’s backend functionalities.
 
 ✨ Expiry Date Checker
+
 Automated tracking of product expiry dates with real-time alerts for items nearing expiration. Admins can take timely actions such as markdowns, removals, or donations to minimize waste.
 
 ✨ Buy/Sell Products
+
 Admins can monitor and facilitate product transactions, ensuring a smooth and efficient buying and selling process.
 
 
 *User Features*:
+
 ✨ User Login
+
 Secure login for customers to access their accounts and manage their shopping experience.
 
 ✨ E-commerce Platform
+
 Users can browse, search, and purchase products with an intuitive, user-friendly interface designed to simplify the shopping process.
 
 
