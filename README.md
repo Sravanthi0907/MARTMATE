@@ -4,6 +4,7 @@ This web-based system is designed for retail stores to optimize food safety, red
 *Admin Features*:
 
 ✨ Admin Login
+
 Secure login for administrators to access and manage the platform’s backend functionalities.
 
 ✨ Expiry Date Checker
